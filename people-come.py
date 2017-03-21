@@ -62,18 +62,21 @@ def main():
                 async_exec_git(user_url['name'], user_url['login'], user_url['email'])
 
     if g_this is None and g_next is None:
-        get_raw()
-        process_user()
-        prev_counter = 0
-        counter = 0
-        while g_next is not None:
-            time.sleep(5)
+        try:
             get_raw()
             process_user()
-            counter += prev_counter
-            prev_counter = counter
+            prev_counter = 0
+            counter = 0
+            while g_next is not None:
+                time.sleep(62) # seconds
+                get_raw()
+                process_user()
+                counter += prev_counter
+                prev_counter = counter
             if counter == prev_counter * 3:
                 do_push()
+        except Exception:
+            pass
 
 
 if __name__ == '__main__':
