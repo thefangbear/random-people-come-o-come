@@ -85,6 +85,8 @@ def main():
                     do_push
             except TypeError:
                 continue
+            except KeyError:
+                time.sleep(3000) # for you, git hub
 
 
 if __name__ == '__main__':
