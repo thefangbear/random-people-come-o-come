@@ -68,15 +68,19 @@ def main():
             prev_counter = 0
             counter = 0
             while g_next is not None:
-                time.sleep(62) # seconds
-                get_raw()
-                process_user()
-                counter += prev_counter
-                prev_counter = counter
-            if counter == prev_counter * 3:
-                do_push()
-        except Exception:
-            pass
+                try:
+                    time.sleep(62) # seconds
+                    get_raw()
+                    process_user()
+                    counter += prev_counter
+                    prev_counter = counter
+                except Exception:
+                    continue
+                if counter == prev_counter * 3:
+                    try:
+                        do_push()
+                    except Exception:
+                        continue
 
 
 if __name__ == '__main__':
