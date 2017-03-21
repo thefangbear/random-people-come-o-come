@@ -15,14 +15,17 @@ import os
 github_api_endpoint = 'https://api.github.com/users'
 is_finished = False
 
+
 def exec_async(user_name, username, user_email):
     for c in ('git config user.name' + user_name,
               'git config user.email' + user_email,
               'echo "' + user_name + ' '
                   + 'https://github.com/' + username + ' - '
                   + user_email + '"' + '>> ' + username + '.txt',
+              'git add *',
               'git commit -am ' + '"@' + username + '"'):
         os.system(c)
+
 
 def async_exec_git(user_name, username, user_email):
     Thread(target=exec_async(user_name, username, user_email))
