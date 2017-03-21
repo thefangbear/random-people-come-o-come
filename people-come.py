@@ -15,15 +15,20 @@ import os
 github_api_endpoint = 'https://api.github.com/users'
 is_finished = False
 
-async_exec_git = (lambda user_name, username, user_email: (
-    Thread(target=(lambda: os.system(c) for c in ('git config user.name' + user_name,
-                                                  'git config user.email' + user_email,
-                                                  'echo "' + user_name + ' '
-                                                  + 'https://github.com/' + username + ' - '
-                                                  + user_email + '"' + '>> ' + username + '.txt',
-                                                  'git commit -am ' + '"@' + username + '"')))).start())
+def exec_async(user_name, username, user_email):
+    for c in ('git config user.name' + user_name,
+              'git config user.email' + user_email,
+              'echo "' + user_name + ' '
+                  + 'https://github.com/' + username + ' - '
+                  + user_email + '"' + '>> ' + username + '.txt',
+              'git commit -am ' + '"@' + username + '"'):
+        os.system(c)
 
-do_push = (lambda: (Thread(target=os.system('git push'))).start())
+def async_exec_git(user_name, username, user_email):
+    Thread(target=exec_async(user_name, username, user_email))
+
+
+do_push = (lambda: (Thread(target=os.system(), args=['git push'])).start())
 
 
 def main():
