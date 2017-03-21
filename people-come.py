@@ -18,6 +18,13 @@ is_finished = False
 
 
 def exec_async(user_name, username, user_email):
+    try: # test
+        str1 = ' asdfasdf' + user_name
+        str2 = ' asdfasdf' + username
+        str3 = ' sadg' + user_email
+    except TypeError:
+        return
+    
     for c in ('git config user.name ' + user_name,
               'git config user.email ' + user_email,
               'echo "' + user_name + ' '
@@ -76,7 +83,7 @@ def main():
 
                 if counter == prev_counter * 3:
                     do_push
-            except Exception:
+            except TypeError:
                 continue
 
 
