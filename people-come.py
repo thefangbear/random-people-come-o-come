@@ -11,6 +11,7 @@ import json
 from threading import Thread
 from sys import argv
 import os
+import time
 
 github_api_endpoint = 'https://api.github.com/users'
 is_finished = False
@@ -66,6 +67,7 @@ def main():
         prev_counter = 0
         counter = 0
         while g_next is not None:
+            time.sleep(5)
             get_raw()
             process_user()
             counter += prev_counter
